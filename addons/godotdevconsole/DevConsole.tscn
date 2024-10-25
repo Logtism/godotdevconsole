@@ -1,9 +1,22 @@
-[gd_scene format=3 uid="uid://03d58s7kbavg"]
+[gd_scene load_steps=3 format=3 uid="uid://03d58s7kbavg"]
 
-[node name="DevConsole" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+[ext_resource type="Script" path="res://addons/godotdevconsole/scripts/DevConsole.cs" id="1_hfiye"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iv286"]
+
+[node name="DevConsole" type="CanvasLayer"]
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 20.0
+offset_top = -350.0
+offset_right = 620.0
+offset_bottom = -20.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_iv286")
+drag_to_rearrange_enabled = true
+script = ExtResource("1_hfiye")
