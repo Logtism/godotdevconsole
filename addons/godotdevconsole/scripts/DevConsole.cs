@@ -1,4 +1,6 @@
+using GodotDevConsole.Logging.Handlers;
 using System.Collections.Generic;
+using GodotDevConsole.Logging;
 using System.Linq;
 using Godot;
 
@@ -15,6 +17,8 @@ namespace GodotDevConsole
         private Dictionary<string, Panel> panels;
         private Panel activePanel;
 
+        private Logger logger;
+
         public bool IsActive { get { return this.Visible; } }
 
         public override void _Ready()
@@ -25,10 +29,13 @@ namespace GodotDevConsole
             }
             else
             {
-                GD.Print("An instance of DevConsole was removed as one already existed.");
+                Logger.GetLogger("DevConsole").Info("An instance of DevConsole was removed as one already existed.");
                 this.QueueFree();
                 return;
             }
+
+            logger = Logger.GetLogger("DevConsole");
+            logger.AddHandler(new GodotLogHandler(LogLevel.TRACE, Formaters.DefaultFormat));
 
             this.panelTypes = GetPanelTypes(panelsSearchLocations);
             this.panels = new Dictionary<string, Panel>();
