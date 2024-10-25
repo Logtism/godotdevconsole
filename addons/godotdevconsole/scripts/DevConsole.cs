@@ -36,11 +36,16 @@ namespace GodotDevConsole
 
             logger = Logger.GetLogger("DevConsole");
             logger.AddHandler(new GodotLogHandler(LogLevel.TRACE, Formaters.DefaultFormat));
+            logger.AddHandler(new DevConsoleHandler(LogLevel.TRACE, Formaters.DefaultFormat));
 
             this.panelTypes = GetPanelTypes(panelsSearchLocations);
             this.panels = new Dictionary<string, Panel>();
 
             this.TabChanged += this.HandleTabChanged;
+
+            this.CreatePanel("logs", "log");
+
+            this.logger.Info("Successfully initialized.");
 
             this.SetActive(false);
         }
@@ -67,6 +72,14 @@ namespace GodotDevConsole
             this.Visible = state;
 
             activePanel?.SetActive(state);
+        }
+
+        public void EmitLog(string logMessage)
+        {
+            foreach (Panel panel in this.panels.Values)
+            {
+                panel.Log(logMessage);
+            }
         }
 
         public void SwitchPanel(string panelName)

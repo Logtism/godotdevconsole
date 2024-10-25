@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://drfir2ph27jwb"]
+
+[ext_resource type="Script" path="res://addons/godotdevconsole/panels/log/scripts/LogPanel.cs" id="1_0w3vg"]
+
+[node name="LogPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_0w3vg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
