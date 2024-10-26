@@ -8,11 +8,5 @@ namespace GodotDevConsole.Panels.Terminal.Commands
         {
             panel.Print("Pong!");
         }
-
-        [Command(Description = "Prints 'Pong!'.")]
-        public static void Ping(string text, TerminalPanel panel)
-        {
-            panel.Print(text);
-        }
     }
 }
