@@ -111,6 +111,7 @@ namespace GodotDevConsole
             if (this.panels.TryGetValue(panelName, out Panel panel))
             {
                 panel.QueueFree();
+                this.panels.Remove(panelName);
                 return $"Panel {panelName} destroyed";
             }
 
