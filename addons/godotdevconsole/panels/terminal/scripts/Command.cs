@@ -13,20 +13,20 @@ namespace GodotDevConsole.Panels.Terminal
         public string Name { get; private set; }
         public List<string> Aliases { get; private set; }
         public string Description { get; private set; }
-        private Dictionary<int, CommandMethod> methods;
+        public Dictionary<int, CommandMethod> Methods { get; private set; }
 
         public Command(string name, List<string> aliases, string description)
         {
             this.Name = name;
             this.Aliases = aliases;
             this.Description = description;
-            this.methods = new Dictionary<int, CommandMethod>();
+            this.Methods = new Dictionary<int, CommandMethod>();
         }
 
         public void AddMethod(MethodInfo methodInfo)
         {
             CommandMethod commandMethod = new CommandMethod(methodInfo);
-            this.methods.Add(commandMethod.ParamCount, commandMethod);
+            this.Methods.Add(commandMethod.ParamCount, commandMethod);
             
             foreach (string alias in methodInfo.GetCustomAttribute<CommandAttribute>().Aliases)
             {
@@ -44,7 +44,7 @@ namespace GodotDevConsole.Panels.Terminal
 
         public void Execute(string[] sArgs, TerminalPanel panel)
         {
-            if (this.methods.TryGetValue(sArgs.Length, out CommandMethod commandMethod))
+            if (this.Methods.TryGetValue(sArgs.Length, out CommandMethod commandMethod))
             {
                 commandMethod.Execute(sArgs, panel);
             }

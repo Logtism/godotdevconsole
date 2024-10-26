@@ -9,14 +9,14 @@ namespace GodotDevConsole.Panels.Terminal
         private static List<Parser> parsers;
 
         private MethodInfo method;
-        private List<CommandParameter> parameters;
+        public List<CommandParameter> Parameters { get; private set; }
 
-        public int ParamCount { get { return this.parameters.Count; } }
+        public int ParamCount { get { return this.Parameters.Count; } }
 
         public CommandMethod(MethodInfo methodInfo)
         {
             this.method = methodInfo;
-            this.parameters = GetParameters(this.method);
+            this.Parameters = GetParameters(this.method);
         }
 
         public void Execute(string[] sArgs, TerminalPanel panel)
@@ -36,13 +36,13 @@ namespace GodotDevConsole.Panels.Terminal
 
             for (int i = 0; i < this.ParamCount; i++)
             {
-                if (parameters[i].TryParse(sArgs[i], out object result))
+                if (Parameters[i].TryParse(sArgs[i], out object result))
                 {
                     args[i] = result;
                 }
                 else
                 {
-                    panel.Print($"Argument {parameters[i].Name} is type of {parameters[i].Type}.");
+                    panel.Print($"Argument {Parameters[i].Name} is type of {Parameters[i].Type}.");
                     return false;
                 }
             }

@@ -109,7 +109,7 @@ namespace GodotDevConsole.Panels.Terminal
             DevConsole.Instance.SetActive(false);
         }
 
-        private static bool TryGetCommand(string name, out Command result)
+        public static bool TryGetCommand(string name, out Command result)
         {
             foreach (Command command in Commands.Values)
             {
