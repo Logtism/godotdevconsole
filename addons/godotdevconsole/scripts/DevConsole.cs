@@ -43,7 +43,8 @@ namespace GodotDevConsole
 
             this.TabChanged += this.HandleTabChanged;
 
-            this.CreatePanel("logs", "log");
+            this.CreatePanel("Terminal", "terminal");
+            this.CreatePanel("logs", "log", false);
 
             this.logger.Info("Successfully initialized.");
 
@@ -91,7 +92,7 @@ namespace GodotDevConsole
             }
         }
 
-        public void CreatePanel(string panelName, string panelTypeName)
+        public void CreatePanel(string panelName, string panelTypeName, bool switchToPanel = true)
         {
             if (this.panelTypes.TryGetValue(panelTypeName, out PackedScene panelType))
             {
@@ -99,7 +100,7 @@ namespace GodotDevConsole
                 this.panels[panelName] = panel;
                 panel.Name = panelName;
                 this.AddChild(panel);
-                this.SwitchPanel(panelName);
+                if (switchToPanel) this.SwitchPanel(panelName);
             }
         }
 
