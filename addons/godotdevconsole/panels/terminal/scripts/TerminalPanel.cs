@@ -11,6 +11,9 @@ namespace GodotDevConsole.Panels.Terminal
         private const string ClearBtnPath = "HBoxContainer/clear_btn";
         private const string CloseBtnPath = "HBoxContainer/close_btn";
 
+        private const string HistoryUpAction = "dev_console_terminal_history_up";
+        private const string HistoryDownAction = "dev_console_terminal_history_down";
+
         private RichTextLabel label;
         private LineEdit input;
         private Button submitBtn;
@@ -18,13 +21,19 @@ namespace GodotDevConsole.Panels.Terminal
         private Button closeBtn;
 
         public static Dictionary<string, Command> Commands { get; private set; }
+        public List<string> CommandHistory { get; private set; }
+        private int historyIndex = -1;
+        private string currentCommand;
 
         public string prompt = "> ";
         public bool showLogs = false;
 
+        public bool IsActive { get { return DevConsole.Instance.IsActive && this.Visible; } }
+
         public override void _Ready()
         {
             Commands ??= Command.GetCommands();
+            this.CommandHistory = new List<string>();
 
             this.label = this.GetNode<RichTextLabel>(LabelPath);
             this.input = this.GetNode<LineEdit>(InputPath);
@@ -36,6 +45,17 @@ namespace GodotDevConsole.Panels.Terminal
             this.submitBtn.Pressed += this.HandleSubmitBtn;
             this.clearBtn.Pressed += this.HandleClear;
             this.closeBtn.Pressed += this.HandleClose;
+        }
+
+        public override void _Input(InputEvent @event)
+        {
+            if (this.IsActive)
+            {
+                if (@event.IsActionReleased(HistoryUpAction))
+                    this.History(-1);
+                if (@event.IsActionReleased(HistoryDownAction))
+                    this.History(1);
+            }
         }
 
         public void Print(string text, bool newLine=true)
@@ -53,6 +73,11 @@ namespace GodotDevConsole.Panels.Terminal
             this.label.Text = string.Empty;
         }
 
+        public void ClearCommandHistory()
+        {
+            this.CommandHistory.Clear();
+        }
+
         public override void SetPreActive(bool state)
         {
             this.input.Editable = false;
@@ -67,10 +92,44 @@ namespace GodotDevConsole.Panels.Terminal
             }
         }
 
+        private void History(int amount)
+        {
+            // - Up
+            // + Down
+
+            if (this.historyIndex == -1)
+            {
+                this.historyIndex = this.CommandHistory.Count;
+            }
+
+            if (this.historyIndex == this.CommandHistory.Count || this.historyIndex == -1)
+            {
+                this.currentCommand = this.input.Text;
+            }
+
+            if (this.historyIndex+amount < 0 || this.historyIndex+amount > this.CommandHistory.Count)
+            {
+                return;
+            }
+            else if (this.historyIndex+amount == this.CommandHistory.Count)
+            {
+                this.historyIndex += amount;
+                this.input.Text = this.currentCommand;
+                return;
+            }
+
+            this.historyIndex += amount;
+            this.input.Text = this.CommandHistory[historyIndex];
+        }
+
         private void ExecuteCommand(string cmdText)
         {
             string cmdName = cmdText.Split(' ')[0].ToLower();
             string[] args = cmdText.Split(' ')[1..];
+
+            this.CommandHistory.Add(cmdText);
+            this.historyIndex = -1;
+            this.currentCommand = "";
 
             if (TryGetCommand(cmdName, out Command command))
             {
