@@ -12,7 +12,7 @@ namespace GodotDevConsole
 
         public static DevConsole Instance;
 
-        private string[] panelsSearchLocations = { "res://addons/godotdevconsole/panels" };
+        private string[] panelsSearchLocations;
         private Dictionary<string, PackedScene> panelTypes;
         private Dictionary<string, Panel> panels;
         private Panel activePanel;
@@ -37,6 +37,8 @@ namespace GodotDevConsole
             logger = Logger.GetLogger("DevConsole");
             logger.AddHandler(new GodotLogHandler(LogLevel.TRACE, Formaters.DefaultFormat));
             logger.AddHandler(new DevConsoleHandler(LogLevel.TRACE, Formaters.DefaultFormat));
+
+            this.panelsSearchLocations = ProjectSettings.GetSetting(Plugin.PanelsSearchPathsSettingPath).AsStringArray();
 
             this.panelTypes = GetPanelTypes(panelsSearchLocations);
             this.panels = new Dictionary<string, Panel>();

@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+godotdevconsole/panels_search_paths=PackedStringArray("res://addons/godotdevconsole/panels")
+
 [application]
 
 config/name="GodotDevConsole"
