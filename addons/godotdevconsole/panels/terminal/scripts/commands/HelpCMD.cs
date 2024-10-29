@@ -3,7 +3,10 @@ namespace GodotDevConsole.Panels.Terminal.Commands
 {
     public static class HelpCMD
     {
-        [Command(Aliases = new string[] { "man" }, Description = "Displays this message.")]
+        [Command(
+            Aliases = new string[] { "man" },
+            Description = "Displays a list of command or more detailed infomation about a command."
+        )]
         public static void Help(TerminalPanel panel)
         {
             string output = string.Empty;
@@ -16,7 +19,10 @@ namespace GodotDevConsole.Panels.Terminal.Commands
             panel.Print(output, newLine: false);
         }
 
-        [Command(Aliases = new string[] { "man" }, Description = "Displays this message.")]
+        [Command(
+            Aliases = new string[] { "man" },
+            Description = "Displays a list of command or more detailed infomation about a command."
+        )]
         public static void Help(string commandName, TerminalPanel panel)
         {
             if (TerminalPanel.TryGetCommand(commandName, out Command command))

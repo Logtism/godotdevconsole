@@ -3,7 +3,10 @@ namespace GodotDevConsole.Panels.Terminal.Commands
 {
     public static class CommandHistoryCMD
     {
-        [Command(Aliases = new string[] { "comhist" }, Description = "Displays the command history.")]
+        [Command(
+            Aliases = new string[] { "comhist" },
+            Description = "Displays the current terminal panels command history."
+        )]
         public static void CommandHistory(TerminalPanel panel)
         {
             string output = string.Empty;
