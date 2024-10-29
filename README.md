@@ -47,7 +47,7 @@ Simply add the `[Command]` attribute to any `static` function and make sure its 
 - `log` A panel that displays logs from any loggers using the `DevConsoleHandler` log handler.
 
 # Roadmap
-- [ ] Create log handler for creating log files
+- [x] Create log handler for creating log files
 - [ ] Make console work without needing input actions
 - [ ] Add auto completing in the terminal panel
 
