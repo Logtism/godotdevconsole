@@ -38,15 +38,19 @@ namespace GodotDevConsole
             logger.AddHandler(new GodotLogHandler(LogLevel.TRACE, Formaters.DefaultFormat));
             logger.AddHandler(new DevConsoleHandler(LogLevel.TRACE, Formaters.DefaultFormat));
 
-            this.panelsSearchLocations = ProjectSettings.GetSetting(Plugin.PanelsSearchPathsSettingPath).AsStringArray();
+            this.panelsSearchLocations = ProjectSettings.GetSetting(Plugin.PanelsSearchPathsSP).AsStringArray();
 
             this.panelTypes = GetPanelTypes(panelsSearchLocations);
             this.panels = new Dictionary<string, Panel>();
 
             this.TabChanged += this.HandleTabChanged;
 
-            this.CreatePanel("Terminal", "terminal");
-            this.CreatePanel("logs", "log", false);
+            foreach (string panelInfo in ProjectSettings.GetSetting(Plugin.DefaultPanelsSP).AsStringArray())
+            {
+                this.CreatePanel(panelInfo.Split(':')[0], panelInfo.Split(':')[1], false);
+            }
+
+            this.SwitchPanel(ProjectSettings.GetSetting(Plugin.ActivePanelSP).AsString());
 
             this.logger.Info("Successfully initialized.");
 
