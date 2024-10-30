@@ -10,9 +10,13 @@ namespace GodotDevConsole
     {
         private const string ToggleAction = "dev_console_toggle";
 
+        private const string SettingsPathBase = "addons/godotdevconsole/";
+        public const string PanelsPathsSP = SettingsPathBase + "panels_paths";
+        public const string DefaultPanelsSP = SettingsPathBase + "default_panels";
+        public const string ActivePanelSP = SettingsPathBase + "active_panel";
+
         public static DevConsole Instance;
 
-        private string[] panelsSearchLocations;
         private Dictionary<string, PackedScene> panelTypes;
         private Dictionary<string, Panel> panels;
         private Panel activePanel;
@@ -38,19 +42,17 @@ namespace GodotDevConsole
             logger.AddHandler(new GodotLogHandler(LogLevel.TRACE, Formaters.DefaultFormat));
             logger.AddHandler(new DevConsoleHandler(LogLevel.TRACE, Formaters.DefaultFormat));
 
-            this.panelsSearchLocations = ProjectSettings.GetSetting(Plugin.PanelsSearchPathsSP).AsStringArray();
-
-            this.panelTypes = GetPanelTypes(panelsSearchLocations);
+            this.panelTypes = GetPanelTypes();
             this.panels = new Dictionary<string, Panel>();
 
             this.TabChanged += this.HandleTabChanged;
 
-            foreach (string panelInfo in ProjectSettings.GetSetting(Plugin.DefaultPanelsSP).AsStringArray())
+            foreach (string panelInfo in ProjectSettings.GetSetting(DefaultPanelsSP).AsStringArray())
             {
                 this.CreatePanel(panelInfo.Split(':')[0], panelInfo.Split(':')[1], false);
             }
 
-            this.SwitchPanel(ProjectSettings.GetSetting(Plugin.ActivePanelSP).AsString());
+            this.SwitchPanel(ProjectSettings.GetSetting(ActivePanelSP).AsString());
 
             this.logger.Info("Successfully initialized.");
 
@@ -130,35 +132,16 @@ namespace GodotDevConsole
             this.activePanel.SetActive(true);
         }
 
-        private static Dictionary<string, PackedScene> GetPanelTypes(string[] searchPaths)
+        private static Dictionary<string, PackedScene> GetPanelTypes()
         {
             Dictionary<string, PackedScene> panelTypes = new Dictionary<string, PackedScene>();
-            List<string> pathsToSearch = searchPaths.ToList();
 
-            while (pathsToSearch.Count > 0)
+            foreach (string panelPath in ProjectSettings.GetSetting(PanelsPathsSP).AsStringArray())
             {
-                DirAccess dir =  DirAccess.Open(pathsToSearch[0]);
-                dir.ListDirBegin();
-                string fileName = dir.GetNext();
-                while (!string.IsNullOrEmpty(fileName))
-                {
-                    if (dir.CurrentIsDir())
-                    {
-                        pathsToSearch.Add($"{pathsToSearch[0]}/{fileName}");
-                    }
-                    else
-                    {
-                        if (fileName.EndsWith("_panel.tscn"))
-                        {
-                            panelTypes.Add(
-                                fileName.Split("_panel.tscn")[0],
-                                GD.Load<PackedScene>($"{pathsToSearch[0]}/{fileName}")
-                            );
-                        }
-                    }
-                    fileName = dir.GetNext();
-                }
-                pathsToSearch.RemoveAt(0);
+                panelTypes.Add(
+                    panelPath.Split("/")[panelPath.Split("/").Length-1].Split("_panel.tscn")[0],
+                    GD.Load<PackedScene>(panelPath)
+                );
             }
 
             return panelTypes;

@@ -40,7 +40,7 @@ Simply add the `[Command]` attribute to any `static` function and make sure its 
 - Create a scene with a name ending in `_panel.tscn` for example `debug_panel.tscn`.
 - Create a C# script that inherits from `GodotDevConsole.Panel`. 
 - Attach the script that inherits `GodotDevConsole.Panel` to the root node of the scene.
-- Open project settings and find `addons/godotdevconsole/panels_search_paths` and add the location of the scene to the list.
+- Open project settings and find `addons/godotdevconsole/panels_paths` and add the path to the scene to the list.
 
 ## Built in panels
 - `terminal` A terminal like panel allowing for commands to be entered and get their output.

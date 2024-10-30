@@ -10,7 +10,7 @@ config_version=5
 
 [addons]
 
-godotdevconsole/panels_search_paths=PackedStringArray("res://addons/godotdevconsole/panels")
+godotdevconsole/panels_paths=PackedStringArray("res://addons/godotdevconsole/panels/terminal/terminal_panel.tscn", "res://addons/godotdevconsole/panels/log/log_panel.tscn")
 godotdevconsole/default_panels=PackedStringArray("Terminal:terminal", "Logs:log")
 godotdevconsole/active_panel="Terminal"
 

@@ -1,39 +1,35 @@
 #if TOOLS
+using GodotDevConsole;
 using Godot;
 
 [Tool]
 public partial class Plugin : EditorPlugin
 {
-    private const string SettingsPathBase = "addons/godotdevconsole/";
-
-    public const string PanelsSearchPathsSP = SettingsPathBase + "panels_search_paths";
-    private const string DefaultPanelSearchPath = "res://addons/godotdevconsole/panels";
-
-    public const string DefaultPanelsSP = SettingsPathBase + "default_panels";
-    public const string ActivePanelSP = SettingsPathBase + "active_panel";
-
     public override void _EnterTree()
     {
         AddAutoloadSingleton("DevConsole", "res://addons/godotdevconsole/DevConsole.tscn");
 
-        if (!ProjectSettings.HasSetting(PanelsSearchPathsSP))
+        if (!ProjectSettings.HasSetting(DevConsole.PanelsPathsSP))
         {
             ProjectSettings.SetSetting(
-                PanelsSearchPathsSP,
-                new string[] { DefaultPanelSearchPath }
+                DevConsole.PanelsPathsSP,
+                new string[] {
+                    "res://addons/godotdevconsole/panels/terminal/terminal_panel.tscn",
+                    "res://addons/godotdevconsole/panels/log/log_panel.tscn"
+                }
             );
         }
-        if (!ProjectSettings.HasSetting(DefaultPanelsSP))
+        if (!ProjectSettings.HasSetting(DevConsole.DefaultPanelsSP))
         {
             ProjectSettings.SetSetting(
-                DefaultPanelsSP,
+                DevConsole.DefaultPanelsSP,
                 new string[] { "Terminal:terminal", "Logs:log" }
             );
         }
-        if (!ProjectSettings.HasSetting(ActivePanelSP))
+        if (!ProjectSettings.HasSetting(DevConsole.ActivePanelSP))
         {
             ProjectSettings.SetSetting(
-                ActivePanelSP,
+                DevConsole.ActivePanelSP,
                 "Terminal"
             );
         }
