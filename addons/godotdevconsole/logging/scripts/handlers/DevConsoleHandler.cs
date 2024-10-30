@@ -7,6 +7,8 @@ namespace GodotDevConsole.Logging.Handlers
 
         protected override void Emit(string logMessage)
         {
+            if (DevConsole.Instance is null) return;
+
             DevConsole.Instance.EmitLog(logMessage);
         }
     }

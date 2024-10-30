@@ -27,6 +27,12 @@ namespace GodotDevConsole
 
         public override void _Ready()
         {
+            if (!OS.HasFeature("editor") && !OS.GetCmdlineArgs().Contains("-console"))
+            {
+                this.QueueFree();
+                return;
+            }
+
             if (Instance is null)
             {
                 Instance = this;
@@ -85,6 +91,8 @@ namespace GodotDevConsole
 
         public void EmitLog(string logMessage)
         {
+            if (this.panels is null) return;
+
             foreach (Panel panel in this.panels.Values)
             {
                 panel.Log(logMessage);
