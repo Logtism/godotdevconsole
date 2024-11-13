@@ -6,6 +6,7 @@ namespace GodotDevConsole.Panels.Terminal
     public partial class TerminalPanel : GodotDevConsole.Panel
     {
         private const string SettingsPathBase = "addons/godotdevconsole/terminal_panel/";
+        public const string PromptSP = SettingsPathBase + "prompt";
         public const string ShowLogsSP = SettingsPathBase + "show_logs";
 
         private const string LabelPath = "PanelContainer/MarginContainer/ScrollContainer/RichTextLabel";
@@ -28,7 +29,7 @@ namespace GodotDevConsole.Panels.Terminal
         private int historyIndex = -1;
         private string currentCommand;
 
-        public string prompt = "> ";
+        public string prompt = ProjectSettings.GetSetting(PromptSP).AsString();
         public bool showLogs = ProjectSettings.GetSetting(ShowLogsSP).AsBool();
 
         public bool IsActive { get { return DevConsole.Instance.IsActive && this.Visible; } }

@@ -12,8 +12,9 @@ config_version=5
 
 godotdevconsole/panels_paths=PackedStringArray("res://addons/godotdevconsole/panels/terminal/terminal_panel.tscn", "res://addons/godotdevconsole/panels/log/log_panel.tscn")
 godotdevconsole/default_panels=PackedStringArray("Terminal:terminal", "Logs:log")
-godotdevconsole/active_panel="Terminal"
 godotdevconsole/terminal_panel/show_logs=true
+godotdevconsole/terminal_panel/prompt="> "
+godotdevconsole/active_panel="Terminal"
 
 [application]
 

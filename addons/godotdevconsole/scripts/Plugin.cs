@@ -41,6 +41,13 @@ public partial class Plugin : EditorPlugin
                 false
             );
         }
+        if (!ProjectSettings.HasSetting(TerminalPanel.PromptSP))
+        {
+            ProjectSettings.SetSetting(
+                TerminalPanel.PromptSP,
+                "> "
+            );
+        }
     }
 
     public override void _ExitTree()
