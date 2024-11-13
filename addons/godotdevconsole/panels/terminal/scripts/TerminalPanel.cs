@@ -29,8 +29,8 @@ namespace GodotDevConsole.Panels.Terminal
         private int historyIndex = -1;
         private string currentCommand;
 
-        public string prompt = ProjectSettings.GetSetting(PromptSP).AsString();
-        public bool showLogs = ProjectSettings.GetSetting(ShowLogsSP).AsBool();
+        public string prompt = ProjectSettings.GetSetting(PromptSP, "> ").AsString();
+        public bool showLogs = ProjectSettings.GetSetting(ShowLogsSP, false).AsBool();
 
         public bool IsActive { get { return DevConsole.Instance.IsActive && this.Visible; } }
 
