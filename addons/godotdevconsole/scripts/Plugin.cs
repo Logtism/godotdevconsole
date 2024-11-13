@@ -1,4 +1,5 @@
 #if TOOLS
+using GodotDevConsole.Panels.Terminal;
 using GodotDevConsole;
 using Godot;
 
@@ -31,6 +32,13 @@ public partial class Plugin : EditorPlugin
             ProjectSettings.SetSetting(
                 DevConsole.ActivePanelSP,
                 "Terminal"
+            );
+        }
+        if (!ProjectSettings.HasSetting(TerminalPanel.ShowLogsSP))
+        {
+            ProjectSettings.SetSetting(
+                TerminalPanel.ShowLogsSP,
+                false
             );
         }
     }
