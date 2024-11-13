@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-11-13
+
 ### Added
 
 - Added CHANGELOG.md.
@@ -25,4 +27,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added README.md.
 
 [unreleased]: https://github.com/Logtism/godotdevconsole/compare/v1.0.0...HEAD
+[1.1.0]: https://github.com/Logtism/godotdevconsole/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Logtism/godotdevconsole/releases/tag/v1.0.0
