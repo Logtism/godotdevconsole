@@ -15,6 +15,7 @@ godotdevconsole/default_panels=PackedStringArray("Terminal:terminal", "Logs:log"
 godotdevconsole/terminal_panel/show_logs=true
 godotdevconsole/terminal_panel/prompt="> "
 godotdevconsole/active_panel="Terminal"
+godotdevconsole/terminal_panel/motd="This is a test MOTD"
 
 [application]
 

@@ -34,6 +34,13 @@ public partial class Plugin : EditorPlugin
                 "Terminal"
             );
         }
+        if (!ProjectSettings.HasSetting(TerminalPanel.MOTDSP))
+        {
+            ProjectSettings.SetSetting(
+                TerminalPanel.MOTDSP,
+                string.Empty
+            );
+        }
         if (!ProjectSettings.HasSetting(TerminalPanel.ShowLogsSP))
         {
             ProjectSettings.SetSetting(

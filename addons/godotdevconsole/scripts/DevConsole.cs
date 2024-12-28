@@ -60,7 +60,7 @@ namespace GodotDevConsole
 
             this.SwitchPanel(ProjectSettings.GetSetting(ActivePanelSP).AsString());
 
-            this.logger.Info("Successfully initialized.");
+            this.logger.Debug("Successfully initialized.");
 
             this.SetActive(false);
         }

@@ -6,6 +6,7 @@ namespace GodotDevConsole.Panels.Terminal
     public partial class TerminalPanel : GodotDevConsole.Panel
     {
         private const string SettingsPathBase = "addons/godotdevconsole/terminal_panel/";
+        public const string MOTDSP = SettingsPathBase + "motd";
         public const string PromptSP = SettingsPathBase + "prompt";
         public const string ShowLogsSP = SettingsPathBase + "show_logs";
 
@@ -29,6 +30,7 @@ namespace GodotDevConsole.Panels.Terminal
         private int historyIndex = -1;
         private string currentCommand;
 
+        private string motd = ProjectSettings.GetSetting(MOTDSP, string.Empty).AsString();
         public string prompt = ProjectSettings.GetSetting(PromptSP, "> ").AsString();
         public bool showLogs = ProjectSettings.GetSetting(ShowLogsSP, false).AsBool();
 
@@ -49,6 +51,9 @@ namespace GodotDevConsole.Panels.Terminal
             this.submitBtn.Pressed += this.HandleSubmitBtn;
             this.clearBtn.Pressed += this.HandleClear;
             this.closeBtn.Pressed += this.HandleClose;
+
+            if (!string.IsNullOrWhiteSpace(motd))
+                this.Print(motd);
         }
 
         public override void _Input(InputEvent @event)
