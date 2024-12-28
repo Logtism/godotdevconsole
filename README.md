@@ -30,6 +30,7 @@ Simply add the `[Command]` attribute to any `static` function and make sure its 
 - `createpanel` Creates a panel of a given type.
 - `destroypanel` Removes a panel by name.
 - `help` Displays a list of command or more detailed infomation about a command.
+- `info` - Displays info about the system.
 - `ping` Prints 'Pong!'.
 - `pinglog` Writes a log with message 'Ping!' and level INFO.
 - `showlogs` Sets whether to show logs in the current terminal panel.
