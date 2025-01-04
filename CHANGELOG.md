@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added MOTD.
 - Added Info command.
+- Added ActiveChanged event.
 
 ### Changed
 

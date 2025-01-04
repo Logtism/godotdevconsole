@@ -2,6 +2,7 @@ using GodotDevConsole.Logging.Handlers;
 using System.Collections.Generic;
 using GodotDevConsole.Logging;
 using System.Linq;
+using System;
 using Godot;
 
 namespace GodotDevConsole
@@ -23,6 +24,7 @@ namespace GodotDevConsole
 
         private Logger logger;
 
+        public EventHandler<bool> ActiveChanged;
         public bool IsActive { get { return this.Visible; } }
 
         public override void _Ready()
@@ -87,6 +89,8 @@ namespace GodotDevConsole
             this.Visible = state;
 
             activePanel?.SetActive(state);
+    
+            this.ActiveChanged?.Invoke(this, state);
         }
 
         public void EmitLog(string logMessage)
