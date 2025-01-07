@@ -16,6 +16,12 @@ godotdevconsole/terminal_panel/show_logs=true
 godotdevconsole/terminal_panel/prompt="> "
 godotdevconsole/active_panel="Terminal"
 godotdevconsole/terminal_panel/motd="This is a test MOTD"
+godotdevconsole/size/width=600
+godotdevconsole/size/height=330
+godotdevconsole/size/margin_top=20.0
+godotdevconsole/size/margin_back=20.0
+godotdevconsole/size/margin_left=20.0
+godotdevconsole/size/margin_right=20.0
 
 [application]
 

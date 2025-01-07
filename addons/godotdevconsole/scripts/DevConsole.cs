@@ -16,6 +16,14 @@ namespace GodotDevConsole
         public const string DefaultPanelsSP = SettingsPathBase + "default_panels";
         public const string ActivePanelSP = SettingsPathBase + "active_panel";
 
+        private const string SizeSPBase = SettingsPathBase + "size/";
+        public const string WidthSP = SizeSPBase + "width";
+        public const string HeightSP = SizeSPBase + "height";
+        public const string MarginTopSP = SizeSPBase + "margin_top";
+        public const string MarginBackSP = SizeSPBase + "margin_back";
+        public const string MarginLeftSP = SizeSPBase + "margin_left";
+        public const string MarginRightSP = SizeSPBase + "margin_right";
+
         public static DevConsole Instance;
 
         private Dictionary<string, PackedScene> panelTypes;
@@ -23,6 +31,13 @@ namespace GodotDevConsole
         private Panel activePanel;
 
         private Logger logger;
+
+        private float[] margins = new float[4] {
+            (float)ProjectSettings.GetSetting(MarginTopSP, 20f).AsDouble(),
+            (float)ProjectSettings.GetSetting(MarginBackSP, 20f).AsDouble(),
+            (float)ProjectSettings.GetSetting(MarginLeftSP, 20f).AsDouble(),
+            (float)ProjectSettings.GetSetting(MarginRightSP, 20f).AsDouble()
+        };
 
         public EventHandler<bool> ActiveChanged;
         public bool IsActive { get { return this.Visible; } }
@@ -61,6 +76,12 @@ namespace GodotDevConsole
             }
 
             this.SwitchPanel(ProjectSettings.GetSetting(ActivePanelSP).AsString());
+
+            this.Position = new Vector2(this.margins[2], this.Position.Y);
+            this.SetSize(
+                (float)ProjectSettings.GetSetting(WidthSP).AsDouble(),
+                (float)ProjectSettings.GetSetting(HeightSP).AsDouble()
+            );
 
             this.logger.Debug("Successfully initialized.");
 
@@ -136,6 +157,26 @@ namespace GodotDevConsole
             }
 
             return $"Could not find panel with name {panelName}";
+        }
+
+        public void SetSize(float width, float height)
+        {
+            width = Mathf.Clamp(
+                width,
+                this.CustomMinimumSize.X,
+                this.GetViewportRect().Size.X - (this.margins[2] + this.margins[3])
+            );
+            height = Mathf.Clamp(
+                height,
+                this.CustomMinimumSize.Y,
+                this.GetViewportRect().Size.Y - (this.margins[0] + this.margins[1])
+            );
+
+            this.Size = new Vector2(width, height);
+            this.Position = new Vector2(
+                this.Position.X,
+                this.GetViewportRect().Size.Y - (height + this.margins[0])
+            );
         }
 
         private void HandleTabChanged(long tabNum)

@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added MOTD.
 - Added Info command.
 - Added ActiveChanged event.
+- Added settings for console margins.
+- Added settings for console size.
+- Added SetConsoleSize command.
 
 ### Changed
 

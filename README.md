@@ -33,6 +33,7 @@ Simply add the `[Command]` attribute to any `static` function and make sure its 
 - `info` - Displays info about the system.
 - `ping` Prints 'Pong!'.
 - `pinglog` Writes a log with message 'Ping!' and level INFO.
+- `setconsolesize` Sets the size of the console.
 - `showlogs` Sets whether to show logs in the current terminal panel.
 
 # Panels

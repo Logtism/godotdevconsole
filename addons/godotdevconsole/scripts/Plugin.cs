@@ -34,6 +34,50 @@ public partial class Plugin : EditorPlugin
                 "Terminal"
             );
         }
+
+        if (!ProjectSettings.HasSetting(DevConsole.WidthSP))
+        {
+            ProjectSettings.SetSetting(
+                DevConsole.WidthSP,
+                600
+            );
+        }
+        if (!ProjectSettings.HasSetting(DevConsole.HeightSP))
+        {
+            ProjectSettings.SetSetting(
+                DevConsole.HeightSP,
+                330
+            );
+        }
+        if (!ProjectSettings.HasSetting(DevConsole.MarginTopSP))
+        {
+            ProjectSettings.SetSetting(
+                DevConsole.MarginTopSP,
+                20f
+            );
+        }
+        if (!ProjectSettings.HasSetting(DevConsole.MarginBackSP))
+        {
+            ProjectSettings.SetSetting(
+                DevConsole.MarginBackSP,
+                20f
+            );
+        }
+        if (!ProjectSettings.HasSetting(DevConsole.MarginLeftSP))
+        {
+            ProjectSettings.SetSetting(
+                DevConsole.MarginLeftSP,
+                20f
+            );
+        }
+        if (!ProjectSettings.HasSetting(DevConsole.MarginRightSP))
+        {
+            ProjectSettings.SetSetting(
+                DevConsole.MarginRightSP,
+                20f
+            );
+        }
+
         if (!ProjectSettings.HasSetting(TerminalPanel.MOTDSP))
         {
             ProjectSettings.SetSetting(
