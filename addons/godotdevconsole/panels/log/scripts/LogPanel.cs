@@ -13,7 +13,7 @@ namespace GodotDevConsole.Panels.Log
             this.label = this.GetNode<RichTextLabel>(LabelPath);
         }
 
-        public override void Log(string logMessage)
+        public override void Log(Logging.Log log, string logMessage)
         {
             this.label.Text += logMessage + '\n';
         }

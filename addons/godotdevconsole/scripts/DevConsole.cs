@@ -114,13 +114,13 @@ namespace GodotDevConsole
             this.ActiveChanged?.Invoke(this, state);
         }
 
-        public void EmitLog(string logMessage)
+        public void EmitLog(Log log, string logMessage)
         {
             if (this.panels is null) return;
 
             foreach (Panel panel in this.panels.Values)
             {
-                panel.Log(logMessage);
+                panel.Log(log, logMessage);
             }
         }
 

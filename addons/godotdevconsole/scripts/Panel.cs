@@ -1,4 +1,5 @@
 
+using GodotDevConsole.Logging;
 using Godot;
 
 namespace GodotDevConsole
@@ -8,6 +9,6 @@ namespace GodotDevConsole
         public virtual void SetPreActive(bool state) {}
         public virtual void SetActive(bool state) {}
 
-        public virtual void Log(string logMessage) {}
+        public virtual void Log(Log log, string logMessage) {}
     }
 }

@@ -6,7 +6,7 @@ namespace GodotDevConsole.Logging.Handlers
     {
         public GodotLogHandler(LogLevel level, Formater formater) : base(level, formater) {}
 
-        protected override void Emit(string logMessage)
+        protected override void Emit(Log log, string logMessage)
         {
             GD.Print(logMessage);
         }

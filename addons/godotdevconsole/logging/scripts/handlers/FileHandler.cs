@@ -12,7 +12,7 @@ namespace GodotDevConsole.Logging.Handlers
             writer.AutoFlush = true;
         }
 
-        protected override void Emit(string logMessage)
+        protected override void Emit(Log log, string logMessage)
         {
             writer.Write(logMessage + '\n');
         }

@@ -72,7 +72,7 @@ namespace GodotDevConsole.Panels.Terminal
             this.label.Text += newLine ? text + '\n' : text;
         }
 
-        public override void Log(string logMessage)
+        public override void Log(Logging.Log log, string logMessage)
         {
             if (this.showLogs) this.Print(logMessage);
         }
