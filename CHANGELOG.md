@@ -8,8 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added filter by log level on log panel.
+- Added filter by log message on log panel.
 
 ### Changed
+- Pass the Log object to `LogHander.Emit` function. NOTE: will break any panels that override `Log`.
 
 ## [1.2.0] - 2025-01-10
 
