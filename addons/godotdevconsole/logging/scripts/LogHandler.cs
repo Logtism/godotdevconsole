@@ -21,10 +21,10 @@ namespace GodotDevConsole.Logging
         {
             if (log.Level <= level)
             {
-                this.Emit(this.formater(log));
+                this.Emit(log, this.formater(log));
             }
         }
 
-        protected abstract void Emit(string logMessage);
+        protected abstract void Emit(Log log, string logMessage);
     }
 }

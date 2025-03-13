@@ -5,11 +5,11 @@ namespace GodotDevConsole.Logging.Handlers
     {
         public DevConsoleHandler(LogLevel level, Formater formater) : base(level, formater) {}
 
-        protected override void Emit(string logMessage)
+        protected override void Emit(Log log, string logMessage)
         {
             if (DevConsole.Instance is null) return;
 
-            DevConsole.Instance.EmitLog(logMessage);
+            DevConsole.Instance.EmitLog(log, logMessage);
         }
     }
 }
