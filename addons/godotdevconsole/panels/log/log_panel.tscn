@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://67bsmkccpyru"]
 
-[ext_resource type="Script" path="res://addons/godotdevconsole/panels/log/scripts/LogPanel.cs" id="1_0w3vg"]
+[ext_resource type="Script" uid="uid://ckevjlmx6kqvp" path="res://addons/godotdevconsole/panels/log/scripts/LogPanel.cs" id="1_0w3vg"]
 
 [node name="LogPanel" type="VBoxContainer"]
 anchors_preset = 15

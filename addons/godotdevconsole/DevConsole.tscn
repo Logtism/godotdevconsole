@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://03d58s7kbavg"]
 
-[ext_resource type="Script" path="res://addons/godotdevconsole/scripts/DevConsole.cs" id="1_hfiye"]
+[ext_resource type="Script" uid="uid://wort5ha152vs" path="res://addons/godotdevconsole/scripts/DevConsole.cs" id="1_hfiye"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iv286"]
 
