@@ -147,7 +147,10 @@ namespace GodotDevConsole
 
         public void CreatePanel(string panelName, string panelTypeName, bool switchToPanel = true)
         {
-            if (this.panelTypes.TryGetValue(panelTypeName, out PackedScene panelType))
+            if (
+                this.panelTypes.TryGetValue(panelTypeName, out PackedScene panelType) &&
+                !this.panels.TryGetValue(panelName, out Panel _)
+            )
             {
                 Panel panel = panelType.Instantiate<Panel>();
                 this.panels[panelName] = panel;
