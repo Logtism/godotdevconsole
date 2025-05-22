@@ -87,18 +87,15 @@ namespace GodotDevConsole.Panels.Terminal
             this.CommandHistory.Clear();
         }
 
-        public override void SetPreActive(bool state)
+        public override void PreDeactivate()
         {
             this.input.Editable = false;
         }
 
-        public override void SetActive(bool state)
+        public override void Activate()
         {
-            if (state)
-            {
-                this.input.Editable = true;
-                this.input.GrabFocus();
-            }
+            this.input.Editable = true;
+            this.input.GrabFocus();
         }
 
         private void History(int amount)
@@ -174,7 +171,7 @@ namespace GodotDevConsole.Panels.Terminal
 
         private void HandleClose()
         {
-            DevConsole.Instance.SetActive(false);
+            DevConsole.Instance.Deactivate();
         }
 
         public static bool TryGetCommand(string name, out Command result)

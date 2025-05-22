@@ -85,33 +85,45 @@ namespace GodotDevConsole
 
             this.logger.Debug("Successfully initialized.");
 
-            this.SetActive(false);
+            this.Deactivate();
         }
 
         public override void _Input(InputEvent @event)
         {
             if (@event.IsActionPressed(ToggleAction))
             {
-                this.SetPreActive(!this.IsActive);
+                if (this.IsActive) this.PreDeactivate();
+                else this.PreActivate();
             }
             if (@event.IsActionReleased(ToggleAction))
             {
-                this.SetActive(!this.IsActive);
+                if (this.IsActive) this.Deactivate();
+                else this.Activate();
             }
         }
 
-        private void SetPreActive(bool state)
+        private void PreActivate()
         {
-            activePanel?.SetPreActive(state);
+            this.activePanel?.PreActivate();
         }
 
-        public void SetActive(bool state)
+        private void PreDeactivate()
         {
-            this.Visible = state;
+            this.activePanel?.PreDeactivate();
+        }
 
-            activePanel?.SetActive(state);
-    
-            this.ActiveChanged?.Invoke(this, state);
+        public void Activate()
+        {
+            this.Visible = true;
+            this.activePanel?.Activate();
+            this.ActiveChanged?.Invoke(this, true);
+        }
+
+        public void Deactivate()
+        {
+            this.Visible = false;
+            this.activePanel?.Deactivate();
+            this.ActiveChanged?.Invoke(this, false);
         }
 
         public void EmitLog(Log log, string logMessage)
@@ -129,7 +141,7 @@ namespace GodotDevConsole
             if (this.panels.TryGetValue(panelName, out Panel panel))
             {
                 panel.Visible = true;
-                panel.SetActive(true);
+                panel.Activate();
             }
         }
 
@@ -182,7 +194,7 @@ namespace GodotDevConsole
         private void HandleTabChanged(long tabNum)
         {
             this.activePanel = this.panels[this.GetChild((int)tabNum).Name];
-            this.activePanel.SetActive(true);
+            this.activePanel.Activate();
         }
 
         private static Dictionary<string, PackedScene> GetPanelTypes()
