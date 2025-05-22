@@ -54,7 +54,7 @@ Simply add the `[Command]` attribute to any `static` function and make sure its 
 - [ ] Add auto completing in the terminal panel
 
 # Contributing
-Instructions on how you can contribute and give back to the project can be found in [CONTRIBUTING.md](). Any help is greatly appreciated.
+Instructions on how you can contribute and give back to the project can be found in [CONTRIBUTING.md](https://github.com/Logtism/godotdevconsole/blob/master/CONTRIBUTING.md). Any help is greatly appreciated.
 
 # License
 Distributed under the MIT License. See [LICENSE](https://github.com/Logtism/godotdevconsole/blob/master/LICENSE) for more information.
