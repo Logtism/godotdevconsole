@@ -7,6 +7,20 @@ using Godot;
 
 namespace GodotDevConsole
 {
+    public enum CreatePanelMessage
+    {
+        Success,
+        InvalidPanelType,
+        PanelWithSameName
+    }
+
+    public enum DestroyPanelMessage
+    {
+        Success,
+        NoPanelWithName,
+        LastPanel
+    }
+
     public partial class DevConsole : TabContainer
     {
         private const string ToggleAction = "dev_console_toggle";
@@ -145,33 +159,33 @@ namespace GodotDevConsole
             }
         }
 
-        public void CreatePanel(string panelName, string panelTypeName, bool switchToPanel = true)
+        public CreatePanelMessage CreatePanel(string panelName, string panelTypeName, bool switchToPanel = true)
         {
-            if (
-                this.panelTypes.TryGetValue(panelTypeName, out PackedScene panelType) &&
-                !this.panels.TryGetValue(panelName, out Panel _)
-            )
-            {
-                Panel panel = panelType.Instantiate<Panel>();
-                this.panels[panelName] = panel;
-                panel.Name = panelName;
-                this.AddChild(panel);
-                if (switchToPanel) this.SwitchPanel(panelName);
-            }
+            PackedScene panelType;
+            if (!this.panelTypes.TryGetValue(panelTypeName, out panelType)) return CreatePanelMessage.InvalidPanelType;
+            if (this.panels.TryGetValue(panelName, out Panel _)) return CreatePanelMessage.PanelWithSameName;
+
+            Panel panel = panelType.Instantiate<Panel>();
+            this.panels[panelName] = panel;
+            panel.Name = panelName;
+            this.AddChild(panel);
+            if (switchToPanel) this.SwitchPanel(panelName);
+
+            return CreatePanelMessage.Success;
         }
 
-        public string DestroyPanel(string panelName)
+        public DestroyPanelMessage DestroyPanel(string panelName)
         {
-            if (this.panels.Count == 1) return "Can't destroy last panel.";
+            if (this.panels.Count == 1) return DestroyPanelMessage.LastPanel;
 
             if (this.panels.TryGetValue(panelName, out Panel panel))
             {
                 panel.QueueFree();
                 this.panels.Remove(panelName);
-                return $"Panel {panelName} destroyed";
+                return DestroyPanelMessage.Success;
             }
 
-            return $"Could not find panel with name {panelName}";
+            return DestroyPanelMessage.NoPanelWithName;
         }
 
         public void SetSize(float width, float height)
@@ -207,7 +221,7 @@ namespace GodotDevConsole
             foreach (string panelPath in ProjectSettings.GetSetting(PanelsPathsSP).AsStringArray())
             {
                 panelTypes.Add(
-                    panelPath.Split("/")[panelPath.Split("/").Length-1].Split("_panel.tscn")[0],
+                    panelPath.Split("/")[panelPath.Split("/").Length - 1].Split("_panel.tscn")[0],
                     GD.Load<PackedScene>(panelPath)
                 );
             }

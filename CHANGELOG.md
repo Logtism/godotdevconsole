@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Replaced `SetPreActive` and `SetActive` with `PreActivate`, `PreDeactivate`, `Activate` and `Deactivate`.
+- Changed `DevConsole.CreatePanel` and `DevConsole.DestroyPanel` to return message enums.
 
 ## [1.3.0] - 2025-03-13
 
