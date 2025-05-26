@@ -72,6 +72,42 @@ namespace GodotDevConsole.Panels.Terminal
             this.label.Text += newLine ? text + '\n' : text;
         }
 
+        public void Print<T>(T[] array, bool separateByNewLine=true, bool newLine=true)
+        {
+            string result = "";
+            foreach (T item in array)
+            {
+                result += $"{item}, ";
+                if (separateByNewLine) result += "\n";
+            }
+            if (result.Length != 0) result = separateByNewLine ? result[..^3] : result[..^2];
+            this.Print(result, newLine);
+        }
+
+        public void Print<T>(List<T> list, bool separateByNewLine=true, bool newLine=true)
+        {
+            string result = "";
+            foreach (T item in list)
+            {
+                result += $"{item}, ";
+                if (separateByNewLine) result += "\n";
+            }
+            if (result.Length != 0) result = separateByNewLine ? result[..^3] : result[..^2];
+            this.Print(result, newLine);
+        }
+
+        public void Print<T1, T2>(Dictionary<T1, T2> dict, bool separateByNewLine = true, bool newLine = true)
+        {
+            string result = "";
+            foreach ((T1 key, T2 value) in dict)
+            {
+                result += $"{key}: {value}, ";
+                if (separateByNewLine) result += "\n";
+            }
+            if (result.Length != 0) result = separateByNewLine ? result[..^3] : result[..^2];
+            this.Print(result, newLine);
+        }
+
         public override void Log(Logging.Log log, string logMessage)
         {
             if (this.showLogs) this.Print(logMessage);
